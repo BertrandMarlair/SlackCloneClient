@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Quicksand", "Roboto", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+*{
+  transition: 0.3s;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 0px;
+  background-color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #8d8d8d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  height: 100%;
+}
+
+.imgWidth {
+  height: unset;
+  width: 100%;
+}
+
+.MuiBadge-badge{
+  margin: .3125rem 1px;
+}
+
+@keyframes displayOut {
+  from {
+    display: block;
+    opacity: 1;
+  }
+  /* 10%{
+    opacity: 0;
+  } */
+  to {
+    display: none;
+    opacity: 0;
+  }
+}
