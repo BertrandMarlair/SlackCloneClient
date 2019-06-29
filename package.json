@@ -15,10 +15,12 @@
     "i18next": "^15.1.1",
     "i18next-browser-languagedetector": "^3.0.1",
     "i18next-xhr-backend": "^2.0.1",
+    "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-apollo": "^2.5.8",
     "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
+    "react-grid-layout": "^0.16.6",
     "react-i18next": "^10.9.0",
     "react-redux": "^7.1.0-alpha.4",
     "react-responsive": "^6.1.2",
@@ -54,11 +56,16 @@
     ]
   },
   "devDependencies": {
+    "@types/react": "^16.8.22",
+    "@types/react-dom": "^16.8.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-hooks": "^1.6.0"
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "source-map-loader": "^0.2.3",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.4000"
   }
 }
