@@ -4,11 +4,11 @@ const logInteraction = ():void => {
     console.log('interacted with draggables')
 }
 
-interface compArg {
+interface compProps {
     gridController: (is_static: boolean) => void;
 }
 
-const gridDiv = ({gridController}: compArg) => {
+const gridDiv = ({gridController}: compProps) => {
 
     return (
         <div style={{width: '100%', height: '100%', backgroundColor: 'white'}}>
