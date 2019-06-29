@@ -17,9 +17,9 @@ const Display = () => {
         ]
     )
 
-    const gridController = is_permitted => {
+    const gridController = is_static => {
         setLayout(layout.map(
-            el => ({...el, static: is_permitted})
+            el => ({...el, static: is_static})
         ))
     }
 

@@ -4,12 +4,16 @@ const logInteraction = ():void => {
     console.log('interacted with draggables')
 }
 
-const gridDiv = (props:any):any => {
+interface compArg {
+    gridController: (is_static: boolean) => void;
+}
+
+const gridDiv = ({gridController}: compArg) => {
 
     return (
         <div style={{width: '100%', height: '100%', backgroundColor: 'white'}}>
-        <span onMouseOver={() => props.gridController(false)} 
-        onMouseLeave={() => props.gridController(true)}>
+        <span onMouseOver={() => gridController(false)} 
+        onMouseLeave={() => gridController(true)}>
             ::hover me to allow drag and drop::
         </span>
 
