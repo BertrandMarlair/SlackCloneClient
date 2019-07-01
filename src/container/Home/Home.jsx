@@ -3,9 +3,10 @@ import { withStyles } from '@material-ui/core'
 import HomeStyle from './HomeStyle'
 
 const Display = () => {
+
     return (
         <div>
-            Home
+            <p>Home</p>
         </div>
     )
 }
