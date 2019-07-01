@@ -1,4 +1,5 @@
-<h1 align="center">Welcome to Slack Clone Client 👋</h1>
+<h1 align="center">BRX Portal 👋</h1>
+<h2>B.Fine Finest product</h2>
 <p>
   <img src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://twitter.com/MarlairB">
@@ -30,9 +31,8 @@ npm run lint
 
 ## Author
 
-👤 **Didier Marlair | Bertrand Marlair**
+**Bertrand Marlair**
 
-* Twitter: [@MarlairB](https://twitter.com/MarlairB)
 * Github: [@BertrandMarlair](https://github.com/BertrandMarlair)
 
 ## Show your support
