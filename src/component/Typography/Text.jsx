@@ -8,11 +8,12 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import typographyStyle from './typographyStyle'
 
 function Normal({ ...props }) {
-  const { classes, children, centered, preWrap, white } = props
+  const { classes, children, centered, preWrap, white, small } = props
   const normalClasses = classNames({
     [classes.defaultFontStyle]: true,
     [classes.normalText]: true,
     [classes.white]: white,
+    [classes.small]: small,
 
   })
   return <div className={normalClasses} style={{ textAlign: centered ? 'center' : 'left', whiteSpace: preWrap ? 'pre-wrap' : 'normal', wordBreak: preWrap ? 'break-all' : 'normal'}}>{children}</div>
@@ -21,6 +22,7 @@ function Normal({ ...props }) {
 Normal.propTypes = {
   classes: PropTypes.object.isRequired,
   white: PropTypes.bool,
+  small: PropTypes.bool,
 }
 
 export default withStyles(typographyStyle)(Normal)

@@ -76,6 +76,12 @@ const typographyStyle = {
   white: {
     color: whiteColor,
   },
+  small: {
+    fontSize: 14,
+  },
+  error: {
+    color: dangerColor
+  },
 }
 
 export default typographyStyle

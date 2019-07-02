@@ -17,7 +17,7 @@ const DisplayUsers = () => {
     console.log(users)
     return (
         <div>
-            Home
+            Dashboard
             {users.data.allUsers && users.data.allUsers.map(coach => (
                 <div key={`userId/${coach.id}`}>
                     {coach.username}

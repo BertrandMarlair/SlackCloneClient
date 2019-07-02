@@ -11,7 +11,7 @@ const Main = () =>(
                 {routes.map(({ component, name, path, exact }) => {
                     return <Route path={path} component={component} key={name} exact={exact} />
                 })}
-                <Redirect to={'/login/signin'} />
+                <Redirect to={'/'} />
             </Switch>
         </BrowserRouter>
     </Fragment>

@@ -3,6 +3,10 @@ import { Provider } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 import configureStore from '../../store/store'
 import AppoloProvider from './AppoloProvider'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+toast.configure()
 
 const Loader = () => (
 	<div className="App">

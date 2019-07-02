@@ -15,7 +15,7 @@ const SideLeftBar = ({ classes }) => {
                 <div className={classes.logo}>
                     <img
                         className={classes.img}
-                        src="/images/logo/rexel.png"
+                        src="/images/logo/bfineSmall.jpg"
                         alt="logo"
                     />
                 </div>

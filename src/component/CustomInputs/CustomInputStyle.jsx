@@ -25,6 +25,8 @@ const CustomInputStyle = {
         borderBottom: '3px solid #9a9a9a',
         borderRadius: 5,
         paddingLeft: 8,
+        marginTop: 5,
+        marginBottom: 5,
     }
 }
 

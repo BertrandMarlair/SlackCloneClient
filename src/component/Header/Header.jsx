@@ -6,18 +6,20 @@ import Button from '../CustomButtons/Button'
 
 const Header = props => {
     const { classes } = props
-    const { t, i18n } = useTranslation()
+    const { i18n } = useTranslation()
 
     const changeLanguage = lng => {
         i18n.changeLanguage(lng)
     }
 
     return (
-        <div>
-            <span className={classes.header}>{t('header.title')}</span>
+        <div className={classes.header}>
+            <div className={classes.img}>
+                <img src="/images/logo/bfineLogo.jpg" alt="logo bfine" />
+            </div>
             <div>
-                <Button color="dark" onClick={() => changeLanguage('fr')}>fr</Button>
-                <Button color="dark" onClick={() => changeLanguage('nl')}>nl</Button>
+                <Button color="white" onClick={() => changeLanguage('fr')}>fr</Button>
+                <Button color="white" onClick={() => changeLanguage('nl')}>nl</Button>
             </div>
         </div>
     )

@@ -1,8 +1,8 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core'
-import HomeStyle from './HomeStyle'
+import LoginStyle from './LoginStyle'
 
-const Display = () => {
+const Login = () => {
     return (
         <div>
             Login
@@ -10,4 +10,4 @@ const Display = () => {
     )
 }
 
-export default withStyles(HomeStyle)(Display)
+export default withStyles(LoginStyle)(Login)

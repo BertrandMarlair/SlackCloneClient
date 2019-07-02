@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 import CustomInputStyle from './CustomInputStyle'
 
-function Select({ ...props }) {
+function Input({ ...props }) {
     const {
         children,
         muiClasses,
@@ -27,10 +27,10 @@ function Select({ ...props }) {
     )
 }
 
-Select.propTypes = {
+Input.propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
     muiClasses: PropTypes.object,
 }
 
-export default withStyles(CustomInputStyle)(Select)
+export default withStyles(CustomInputStyle)(Input)

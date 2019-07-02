@@ -38,7 +38,7 @@ const SideBarStyle = theme => {
             position: 'absolute'
         },
         sideBarControl: {
-            width: 150,
+            width: 100,
             height: '100vh',
             zIndex: 1200,
             position: 'absolute',

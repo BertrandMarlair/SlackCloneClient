@@ -38,3 +38,31 @@ a {
 img {
   height: 100%;
 }
+
+link {
+  color: blue
+}
+
+.Toastify__progress-bar--default {
+  background: none !important;
+}
+
+.Toastify__progress-bar--default {
+  background: none !important;
+}
+
+.Toastify__toast--default {
+  background: none !important;
+}
+.Toastify__toast {
+  box-shadow: unset !important;
+  margin-bottom: 0 !important;
+}
+
+.Toastify__close-button--default {
+  color: white;
+  position: relative;
+  top: 17px;
+  right: 30px;
+  font-size: 14px;
+}

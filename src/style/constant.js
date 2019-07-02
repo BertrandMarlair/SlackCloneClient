@@ -19,7 +19,7 @@ const defaultFont = {
     lineHeight: '1.5em',
 }
 
-const primaryColor = '#282e4c'
+const primaryColor = '#0d3f76'
 const secondaryColor = '#AEC00B'
 const darkColor = '#122530'
 const greenColor = '#AEC00B'
