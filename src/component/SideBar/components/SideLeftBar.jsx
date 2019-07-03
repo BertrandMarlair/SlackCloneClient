@@ -8,7 +8,7 @@ import {
 } from '@material-ui/icons'
 import Icon from '../../../component/CustomIcons/Icon'
 
-const SideLeftBar = ({ classes }) => {
+const SideLeftBar = ({ classes, teams, history}) => {
     return (
         <div className={classes.sideBarLeft}>
             <div className={classes.sideTop}>
@@ -19,7 +19,18 @@ const SideLeftBar = ({ classes }) => {
                         alt="logo"
                     />
                 </div>
-                <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>
+                {console.log(teams)}
+                {teams.map(team => (
+                    <Icon 
+                        key={team.id} 
+                        centered 
+                        white 
+                        className={classes.teamIcon}
+                        onClick={() => history.push(`/app/view-team/${team.id}`)}
+                    >
+                        {team.name.charAt(0).toUpperCase()}
+                    </Icon>
+                ))}
             </div>
             <div className={classes.sideBottom}>
                 <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>

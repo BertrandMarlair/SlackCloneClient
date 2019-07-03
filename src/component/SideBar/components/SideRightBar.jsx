@@ -1,27 +1,24 @@
 import React, { useState, Fragment } from 'react'
-import { withStyles } from '@material-ui/core'
 import { compose } from 'recompose'
+import { withStyles } from '@material-ui/core'
 import SideBarStyle from '../SideBarStyle'
 import { withRouter } from 'react-router-dom'
 import clsx from 'clsx'
-import List from '@material-ui/core/List'
 import Drawer from '@material-ui/core/Drawer'
 import Icon from '../../../component/CustomIcons/Icon'
-import Divider from '@material-ui/core/Divider'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
 import { useSelector, useDispatch } from 'react-redux'
+import ChannelsList from './ChannelsList'
+import MessagesList from './MessagesList'
 
-const SideRightBar = ({ classes }) => {
+const SideRightBar = ({ classes, channels, teamName }) => {
     const [hover, setHover] = useState(false)
     const layout = useSelector(state => state.layout)
+    const connected = useSelector(state => state.connected)
     const dispatch = useDispatch()
     const { isSidebarOpened } = layout
+    const { user } = connected
 
     const TOGGLE_SIDEBAR = () => dispatch({ type: 'Layout/TOGGLE_SIDEBAR' })
 
@@ -53,15 +50,15 @@ const SideRightBar = ({ classes }) => {
                 })}
             >
                 <Icon onClick={handleDrawerClose} className={classes.iconButton}>
-                    {isSidebarOpened ?
+                    {isSidebarOpened ? (
                         <ChevronLeftIcon
                             className={classes.iconToolBar}
                         />
-                        :
+                    ) : (
                         <ChevronRightIcon
                             className={classes.iconToolBar}
                         />
-                    }
+                    )}
                 </Icon>
             </div>
             <div 
@@ -82,56 +79,8 @@ const SideRightBar = ({ classes }) => {
                     }}
                     open={openDrawer}
                 >
-                    <Divider />
-                    <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? 
-                                        <InboxIcon 
-                                            className={clsx(classes.icon, {
-                                                [classes.drawerOpenIcon]: openDrawer,
-                                                [classes.drawerCloseIcon]: !openDrawer,
-                                            })}
-                                        /> 
-                                    : 
-                                        <MailIcon 
-                                            className={clsx(classes.icon, {
-                                                [classes.drawerOpenIcon]: openDrawer,
-                                                [classes.drawerCloseIcon]: !openDrawer,
-                                            })}
-                                        />
-                                    }
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
-                    <Divider />
-                    <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ?
-                                        <InboxIcon
-                                            className={clsx(classes.icon, {
-                                                [classes.drawerOpenIcon]: openDrawer,
-                                                [classes.drawerCloseIcon]: !openDrawer,
-                                            })}
-                                        />
-                                        :
-                                        <MailIcon
-                                            className={clsx(classes.icon, {
-                                                [classes.drawerOpenIcon]: openDrawer,
-                                                [classes.drawerCloseIcon]: !openDrawer,
-                                            })}
-                                        />
-                                    }
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
+                    <ChannelsList openDrawer={openDrawer} channels={channels} teamName={teamName} userName={user.username}/>
+                    <MessagesList />
                 </Drawer>
             </div>
         </Fragment>

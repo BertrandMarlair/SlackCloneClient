@@ -1,5 +1,5 @@
 export const initialState = {
-    isSidebarOpened: false,
+    isSidebarOpened: true,
 }
 
 export const TOGGLE_SIDEBAR = 'Layout/TOGGLE_SIDEBAR'

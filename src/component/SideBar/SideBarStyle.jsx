@@ -1,4 +1,4 @@
-import { primaryColor } from '../../style/constant'
+import { primaryColor, successColor } from '../../style/constant'
 
 const drawerWidth = 200
 
@@ -25,6 +25,10 @@ const SideBarStyle = theme => {
         },
         img: {
             width: '100%',
+        },
+        teamIcon: {
+            width: 52,
+            height: 52
         },
         sideBarRight: {
             width: 25,
@@ -71,19 +75,25 @@ const SideBarStyle = theme => {
                 width: 25,
             },
         },
+        icon: {
+            fontSize: 18
+        },
         drawerOpenIcon: {
-            color: 'inherit',
+            opacity: '1',
             transition: theme.transitions.create('width', {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
             }),
         },
         drawerCloseIcon: {
-            color: 'transparent',
+            opacity: '0',
             transition: theme.transitions.create('width', {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
             }),
+        },
+        conncetedIcon: {
+            color: successColor,
         },
         toolbar: {
             display: 'flex',

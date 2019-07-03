@@ -9,7 +9,7 @@ import authFailed from '../../utils/errors/authFailed'
 import Button from '../../component/CustomButtons/Button'
 import SmallTitle from '../../component/Typography/SmallTitle'
 import notify from '../../component/Notification/Notification'
-import DashboardLayout from '../../layouts/Dashboard/Dashboard'
+import PrivateLayout from '../../layouts/Public/Public'
 
 const CreateTeam = ({ classes, history}) => {
 
@@ -22,7 +22,7 @@ const CreateTeam = ({ classes, history}) => {
         e.preventDefault()
         createTeam({ variables: { teamName } })
             .then(response => {
-                const { ok, errors } = response.data.createTeam
+                const { ok, errors, team } = response.data.createTeam
                 if (ok && !errors) {
                     notify({
                         type: 'report',
@@ -30,7 +30,7 @@ const CreateTeam = ({ classes, history}) => {
                         variant: 'contained',
                         color: 'primary'
                     })
-                    history.push('/')
+                    history.push(`/app/view-team/${team.id}`)
                 } else {
                     if (errors && errors.length) {
                         const teamErrorMessage = errors[errors.findIndex(x => x.path === 'name')]
@@ -52,7 +52,7 @@ const CreateTeam = ({ classes, history}) => {
 
 
     return (
-        <DashboardLayout>
+        <PrivateLayout>
             <div className={classes.container}>
                 <Title centered>Create your team</Title>
                 <form className={classes.form} onSubmit={e => handleSubmit(e)}>
@@ -62,13 +62,16 @@ const CreateTeam = ({ classes, history}) => {
                     <Button className={classes.submit} type="submit" fullWidth color="primary" round>Suivant -></Button>
                 </form>
             </div>
-        </DashboardLayout>
+        </PrivateLayout>
     )
 }
 
 const CREATE_TEAM = gql`
     mutation createTeam($teamName: String!){
         createTeam(name: $teamName){
+            team {
+                id
+            }
             errors {
                 path
                 message
