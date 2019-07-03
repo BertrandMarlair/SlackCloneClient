@@ -4,7 +4,7 @@ export const initialState = {
 
 export const CONNECTED = 'CONNECTED'
 
-export const toggleSidebar = () => ({
+export const toggleConnection = () => ({
     type: CONNECTED,
 })
 

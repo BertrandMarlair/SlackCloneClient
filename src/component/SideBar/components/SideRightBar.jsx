@@ -40,7 +40,7 @@ const SideRightBar = ({ classes }) => {
 
     return (
         <Fragment>
-            {hover &&
+            {hover && !isSidebarOpened &&
                 <div 
                     className={classes.sideBarControl}
                     onMouseOut={() => handleDrawerHover(false)}

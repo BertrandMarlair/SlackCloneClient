@@ -1,26 +1,25 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
-import Dashboard from '../Dashboard/Dashboard'
-import Connect from '../Connect/Connect'
+import dashboard from '../../router/routerPath/dashboard'
+import connect from '../../router/routerPath/connect'
+import all from '../../router/routerPath/public'
+import PrivateRoute from '../../router/routerContainer/PrivateRoute'
+import PublicRoute from '../../router/routerContainer/PublicRoute'
+import ConnectRoute from '../../router/routerContainer/ConnectRoute'
 
 const RouteProvider = () => {
-    const connect = useSelector(state => state.connected)
-    const { connected } = connect
-    console.log(connected)
-    const getRoute = () => {
-        if (connected) {
-            return <Dashboard />
-        } else {
-            return <Connect />
-        }
-    }
-
-
     return (
         <Router>
-            {getRoute()}
+            {dashboard.map(({ component, name, path, exact }) => {
+                return <PrivateRoute path={path} component={component} key={name} exact={exact} />
+            })}
+            {connect.map(({ component, name, path, exact }) => {
+                return <ConnectRoute path={path} component={component} key={name} exact={exact} />
+            })}
+            {all.map(({ component, name, path, exact }) => {
+                return <PublicRoute path={path} component={component} key={name} exact={exact} />
+            })}
         </Router>
     )
 }

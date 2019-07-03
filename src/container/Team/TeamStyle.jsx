@@ -1,8 +1,8 @@
-const SignupStyle = {
+const TeamStyle = {
     container: {
         maxWidth: 450,
         margin: 'auto',
-        marginTop: '20vh',
+        paddingTop: '20vh',
     },
     form: {
         padding: 20
@@ -12,4 +12,4 @@ const SignupStyle = {
     }
 }
 
-export default SignupStyle
+export default TeamStyle

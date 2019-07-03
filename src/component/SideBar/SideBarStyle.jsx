@@ -7,6 +7,7 @@ const SideBarStyle = theme => {
         sideBar: {
             position: 'fixed',
             display: 'flex',
+            zIndex: 1201
         },
         sideBarLeft: {
             width: 70,

@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
+
+import gql from 'graphql-tag'
+import { compose } from 'recompose'
+import { withRouter, NavLink } from 'react-router-dom'
+import { useMutation } from 'react-apollo-hooks'
 import { withStyles } from '@material-ui/core'
+
 import SigninStyle from './SigninStyle'
+import Text from '../../component/Typography/Text'
+import Title from '../../component/Typography/Title'
+import Input from '../../component/CustomInputs/Input'
+import ConnectLayout from '../../layouts/Connect/Connect'
 import Button from '../../component/CustomButtons/Button'
 import SmallTitle from '../../component/Typography/SmallTitle'
-import Title from '../../component/Typography/Title'
-import Text from '../../component/Typography/Text'
-import Input from '../../component/CustomInputs/Input'
-import { NavLink } from 'react-router-dom'
-import { useMutation } from 'react-apollo-hooks'
-import gql from 'graphql-tag'
 import notify from '../../component/Notification/Notification'
-import { compose } from 'recompose'
-import { withRouter } from 'react-router-dom'
 
 const Signin = ({ classes, history }) => {
     const [ username, setUsername ] = useState('')
@@ -35,7 +37,7 @@ const Signin = ({ classes, history }) => {
                     variant: 'contained', 
                     color: 'primary'
                 })
-                history.push('/app/dashboard')
+                history.push('/connect/signup')
             }else{
                 if(errors && errors.length){
                     const usernameErrorMessage = errors[errors.findIndex(x => x.path === 'username')]
@@ -60,22 +62,24 @@ const Signin = ({ classes, history }) => {
 
 
     return (
-        <div className={classes.container}>
-            <Title centered><b>Nouveau</b> Compte</Title>
-            <form className={classes.form} onSubmit={(e)=>handleSubmit(e)}>
-                <SmallTitle>Inscrivez vous avec votre email professionnel.</SmallTitle>
-                <Input onChange={(e) => setUsername(e.target.value)} name="username" type="text" placeholder="Username" autoComplete="username" />
-                <SmallTitle error>{usernameError}</SmallTitle>
-                <Input onChange={(e) => setEmail(e.target.value)} name="email" type="email" placeholder="Saisissez votre e-mail professionnel" autoComplete="email"/>
-                <SmallTitle error>{emailError}</SmallTitle>
-                <Input onChange={(e) => setPassword(e.target.value)} name="password" type="password" placeholder="Password" autoComplete="current-password" />
-                <SmallTitle error>{passwordError}</SmallTitle>
-                <Button className={classes.submit} type="submit" fullWidth color="primary" round>Suivant -></Button>
-            </form>
-            <div>
-                <Text>Si vous êtes déjà inscrit <NavLink className="link" to="/login/signup">Connectez-vous Ici</NavLink>.</Text>
+        <ConnectLayout>
+            <div className={classes.container}>
+                <Title centered><b>Nouveau</b> Compte</Title>
+                <form className={classes.form} onSubmit={(e)=>handleSubmit(e)}>
+                    <SmallTitle>Inscrivez vous avec votre email professionnel.</SmallTitle>
+                    <Input onChange={(e) => setUsername(e.target.value)} name="username" type="text" placeholder="Username" autoComplete="username" />
+                    <SmallTitle error>{usernameError}</SmallTitle>
+                    <Input onChange={(e) => setEmail(e.target.value)} name="email" type="email" placeholder="Saisissez votre e-mail professionnel" autoComplete="email"/>
+                    <SmallTitle error>{emailError}</SmallTitle>
+                    <Input onChange={(e) => setPassword(e.target.value)} name="password" type="password" placeholder="Password" autoComplete="current-password" />
+                    <SmallTitle error>{passwordError}</SmallTitle>
+                    <Button className={classes.submit} type="submit" fullWidth color="primary" round>Suivant -></Button>
+                </form>
+                <div>
+                    <Text>Si vous êtes déjà inscrit <NavLink className="link" to="/connect/login">Connectez-vous Ici</NavLink>.</Text>
+                </div>
             </div>
-        </div>
+        </ConnectLayout>
     )
 }
 
