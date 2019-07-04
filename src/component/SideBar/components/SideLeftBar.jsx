@@ -5,7 +5,9 @@ import SideBarStyle from '../SideBarStyle'
 import { withRouter } from 'react-router-dom'
 import {
     NotificationsNone as NotificationsIcon,
+    Add as AddIcon,
 } from '@material-ui/icons'
+import { NavLink } from 'react-router-dom'
 import Icon from '../../../component/CustomIcons/Icon'
 
 const SideLeftBar = ({ classes, teams, history}) => {
@@ -19,7 +21,6 @@ const SideLeftBar = ({ classes, teams, history}) => {
                         alt="logo"
                     />
                 </div>
-                {console.log(teams)}
                 {teams.map(team => (
                     <Icon 
                         key={team.id} 
@@ -33,7 +34,9 @@ const SideLeftBar = ({ classes, teams, history}) => {
                 ))}
             </div>
             <div className={classes.sideBottom}>
-                <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>
+                <NavLink to={'/app/create-team'}>
+                    <Icon centered white><AddIcon className={classes.icon} /></Icon>
+                </NavLink>
                 <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>
                 <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>
                 <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>

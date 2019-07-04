@@ -28,7 +28,8 @@ const SideBarStyle = theme => {
         },
         teamIcon: {
             width: 52,
-            height: 52
+            height: 52,
+            fontSize: 18,
         },
         sideBarRight: {
             width: 25,
@@ -133,6 +134,11 @@ const SideBarStyle = theme => {
             flexGrow: 1,
             padding: theme.spacing(3),
         },
+        subHeaderChannel: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+        }
     })
 }
 
