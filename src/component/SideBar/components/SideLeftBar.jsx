@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core'
+import { withStyles, Divider } from '@material-ui/core'
 import { compose } from 'recompose'
 import SideBarStyle from '../SideBarStyle'
 import { withRouter } from 'react-router-dom'
@@ -10,7 +10,7 @@ import {
 import { NavLink } from 'react-router-dom'
 import Icon from '../../../component/CustomIcons/Icon'
 
-const SideLeftBar = ({ classes, teams, history}) => {
+const SideLeftBar = ({ classes, teams, inviteTeams,  history}) => {
     return (
         <div className={classes.sideBarLeft}>
             <div className={classes.sideTop}>
@@ -22,6 +22,18 @@ const SideLeftBar = ({ classes, teams, history}) => {
                     />
                 </div>
                 {teams.map(team => (
+                    <Icon 
+                        key={team.id} 
+                        centered 
+                        white 
+                        className={classes.teamIcon}
+                        onClick={() => history.push(`/app/view-team/${team.id}`)}
+                    >
+                        {team.name.charAt(0).toUpperCase()}
+                    </Icon>
+                ))}
+                <Divider />
+                {inviteTeams.map(team => (
                     <Icon 
                         key={team.id} 
                         centered 

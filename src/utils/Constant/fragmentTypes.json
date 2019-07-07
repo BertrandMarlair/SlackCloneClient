@@ -1,0 +1,20 @@
+{
+  "__schema": {
+    "types": [
+      {
+        "kind": "UNION",
+        "name": "BeCodeTeamMember",
+        "possibleTypes": [{"name": "Coach"}, {"name": "Staff"}]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Person",
+        "possibleTypes": [
+          {"name": "Coach"},
+          {"name": "Staff"},
+          {"name": "Junior"}
+        ]
+      }
+    ]
+  }
+}

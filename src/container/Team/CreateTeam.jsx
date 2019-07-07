@@ -5,7 +5,6 @@ import { useMutation } from 'react-apollo-hooks'
 import TeamStyle from './TeamStyle'
 import Title from '../../component/Typography/Title'
 import Input from '../../component/CustomInputs/Input'
-import authFailed from '../../utils/errors/authFailed'
 import Button from '../../component/CustomButtons/Button'
 import SmallTitle from '../../component/Typography/SmallTitle'
 import notify from '../../component/Notification/Notification'
@@ -45,7 +44,6 @@ const CreateTeam = ({ classes, history}) => {
                 }
             })
             .catch(err => {
-                authFailed(history)
                 console.log(err)
             })
     }

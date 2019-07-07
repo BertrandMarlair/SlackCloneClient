@@ -2,32 +2,47 @@ import React, { useState, useEffect } from 'react'
 import { withStyles } from '@material-ui/core'
 import { compose } from 'recompose'
 import SideBarStyle from './SideBarStyle'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import SideLeftBar from './components/SideLeftBar'
 import SideRightBar from './components/SideRightBar'
 import gql from 'graphql-tag'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 
-const SideBar = ({ classes, match: { params } }) => {
+const SideBar = ({ classes, match: { params }, history, location }) => {
+
     const [currentTeamId, setCurrentTeamId] = useState(params.teamId ? parseInt(params.teamId) : null)
 
-    useEffect(() => {
-        const teamId = params.teamId ? parseInt(params.teamId) : null
-        setCurrentTeamId(teamId)
-    }, [params])
-
     const teams = useQuery(ALL_TEAM)
-    const createChannelMutation = useMutation(CREATE_CHANNEL, {
-        update: (proxy, {data, ok}) => {
-            if (!ok) return
-            currentTeam.channels.push(data.createChannel.channel)
+
+    const createChannelMutation = useMutation(CREATE_CHANNEL, { refetchQueries: ['allTeams'],  
+        update: (proxy, { data: { createChannel } }) => {
+            if (!createChannel.ok) return
+            history.push(`/app/view-team/${currentTeamId}/${createChannel.channel.id}`)
         }
     }) 
 
+    const createUserInvitelMutation = useMutation(INVITE_USER_TO_TEAM) 
+
     const getTeams = teams.data && teams.data.allTeams ? teams.data.allTeams : []
-    const currentIndexTeam = getTeams.findIndex(team => team.id === currentTeamId)
-    const currentTeam = currentIndexTeam > -1 ? getTeams[currentIndexTeam] : getTeams ? getTeams[0] : {}
+    const getInviteTeams = teams.data && teams.data.inviteTeams ? teams.data.inviteTeams : []
+    const allTeams = [...getTeams, ...getInviteTeams]
+    const currentIndexTeam = allTeams.findIndex(team => team.id === currentTeamId)
+    const currentTeam = currentIndexTeam > -1 ? allTeams[currentIndexTeam] : allTeams ? allTeams[0] : {}
     const channels = currentTeam && currentTeam.channels ? currentTeam.channels : []
+
+    useEffect(() => {
+        if (location.pathname.slice(0, 14) === '/app/view-team'){
+            const teamId = params.teamId ? parseInt(params.teamId) : null
+            setCurrentTeamId(teamId)
+            if (!params.teamId && currentTeam) {
+                history.push(`/app/view-team/${currentTeam.id}/`)
+            }
+        }
+    }, [currentTeam, history, params, location])
+
+    if (!teams.loading && !allTeams.length){
+        return <Redirect to="/app/create-team" />
+    }
 
     return (
         <div className={classes.sideBar}> 
@@ -35,8 +50,12 @@ const SideBar = ({ classes, match: { params } }) => {
                 channels={channels}
                 team={currentTeam} 
                 createChannelMutation={createChannelMutation} 
+                createUserInvitelMutation={createUserInvitelMutation} 
             />
-            <SideLeftBar teams={getTeams} />
+            <SideLeftBar 
+                teams={getTeams} 
+                inviteTeams={getInviteTeams} 
+            />
         </div>
     )
 }
@@ -46,13 +65,24 @@ const ALL_TEAM = gql`
         allTeams {
             id
             name
+            owner
             channels{
                 id
                 name
                 public
             }
         }
-}
+        inviteTeams {
+            id
+            name
+            owner
+            channels{
+                id
+                name
+                public
+            }
+        }
+    }
 `
 
 const CREATE_CHANNEL = gql`
@@ -63,6 +93,18 @@ const CREATE_CHANNEL = gql`
                 name
                 public
             }
+            ok
+            errors {
+                path
+                message
+            }
+        }
+    }
+`
+
+const INVITE_USER_TO_TEAM = gql`
+    mutation addTeamMember($email: String!, $teamId: Int!) {
+        addTeamMember(email: $email, teamId: $teamId) {
             ok
             errors {
                 path

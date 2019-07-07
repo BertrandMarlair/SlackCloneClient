@@ -1,15 +1,22 @@
 import React from 'react'
 
 import ApolloClient from 'apollo-client'
-import { ApolloLink } from 'apollo-link'
 import { ApolloProvider } from 'react-apollo'
-import { createHttpLink } from 'apollo-link-http'
+import { ApolloLink, split } from 'apollo-link'
 import { setContext } from 'apollo-link-context'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { createHttpLink } from 'apollo-link-http'
+import { getMainDefinition } from 'apollo-utilities'
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
+import introspectionQueryResultData from '../../utils/Constant/fragmentTypes.json'
 
 import RouteProvider from './RouteProvider'
-import { ENDPOINT_HTTP } from '../../utils/Constant/constant'
+import { ENDPOINT_HTTP, ENDPOINT_WS } from '../../utils/Constant/constant'
+import { WebSocketLink } from 'apollo-link-ws'
+
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+    introspectionQueryResultData,
+})
 
 const AppoloProvider = () => {
 
@@ -36,11 +43,30 @@ const AppoloProvider = () => {
         })
     })
 
-    const link = afterwareLink.concat(middlewareLink.concat(httpLink))
+    const httpLinkAuth = afterwareLink.concat(middlewareLink.concat(httpLink))
+
+    const wsLink = new WebSocketLink({
+        uri: ENDPOINT_WS,
+        options: {
+            reconnect: true,
+            connectionParams: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        },
+    })
+
+    const link = split(
+        ({ query }) => {
+            const { kind, operation } = getMainDefinition(query)
+            return kind === 'OperationDefinition' && operation === 'subscription'
+        },
+        wsLink,
+        httpLinkAuth,
+    )
 
     const client = new ApolloClient({
         link,
-        cache: new InMemoryCache()
+        cache: new InMemoryCache({ fragmentMatcher })
     })
 
     return (

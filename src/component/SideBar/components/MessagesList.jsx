@@ -1,15 +1,28 @@
 import React from 'react'
 import List from '@material-ui/core/List'
+import { withStyles } from '@material-ui/core'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
+import { Add as AddIcon } from '@material-ui/icons'
 
-const MessagesList = () => {
+import Icon from '../../CustomIcons/Icon'
+import SideBarStyle from '../SideBarStyle'
+
+const MessagesList = ({ setOpenInviteUserToTeamModal, classes, isOwner }) => {
     return (
         <List
             subheader={
-                <ListSubheader component="div" id="nested-list-subheader">
-                    Messages
+                <ListSubheader component="div" className={classes.subHeaderChannel}>
+                    <span>Invite User</span>
+                    {isOwner && (
+                        <Icon
+                            centered
+                            onClick={() => setOpenInviteUserToTeamModal(true)}
+                        >
+                            <AddIcon className={classes.icon} />
+                        </Icon>
+                    )}
                 </ListSubheader>
             }
         >
@@ -22,4 +35,4 @@ const MessagesList = () => {
     )
 }
 
-export default MessagesList
+export default withStyles(SideBarStyle)(MessagesList)

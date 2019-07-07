@@ -12,11 +12,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import ChannelsList from './ChannelsList'
 import MessagesList from './MessagesList'
 import CreateChannel from '../../../component/Channel/CreateChannel'
+import InviteUserToTeam from '../../../component/Team/InviteUserToTeam'
 
-const SideRightBar = ({ classes, channels, team, createChannelMutation }) => {
+const SideRightBar = ({ classes, channels, team, createChannelMutation, createUserInvitelMutation }) => {
 
     const [hover, setHover] = useState(false)
     const [openAddChannelModal, setOpenAddChannelModal] = useState(false)
+    const [openInviteUserToTeamModal, setOpenInviteUserToTeamModal] = useState(false)
     const layout = useSelector(state => state.layout)
     const connected = useSelector(state => state.connected)
     const dispatch = useDispatch()
@@ -37,6 +39,7 @@ const SideRightBar = ({ classes, channels, team, createChannelMutation }) => {
     }
 
     const openDrawer = isSidebarOpened || hover
+    const isOwner = team && team.owner === user.id
 
     return (
         <Fragment>
@@ -82,10 +85,14 @@ const SideRightBar = ({ classes, channels, team, createChannelMutation }) => {
                         openDrawer={openDrawer} 
                         channels={channels} 
                         team={team} 
-                        userName={user.username}
+                        isOwner={isOwner}
+                        userName={user.name}
                         setOpenAddChannelModal={setOpenAddChannelModal}
+                        />
+                    <MessagesList 
+                        isOwner={isOwner}
+                        setOpenInviteUserToTeamModal={setOpenInviteUserToTeamModal} 
                     />
-                    <MessagesList />
                 </Drawer>
             </div>
             <CreateChannel 
@@ -93,6 +100,12 @@ const SideRightBar = ({ classes, channels, team, createChannelMutation }) => {
                 openAddChannelModal={openAddChannelModal} 
                 setOpenAddChannelModal={setOpenAddChannelModal} 
                 createChannelMutation={createChannelMutation}
+            />
+            <InviteUserToTeam 
+                teamId={team ? team.id : null}
+                openInviteUserToTeamModal={openInviteUserToTeamModal} 
+                setOpenInviteUserToTeamModal={setOpenInviteUserToTeamModal} 
+                createUserInvitelMutation={createUserInvitelMutation}
             />
         </Fragment>
     )

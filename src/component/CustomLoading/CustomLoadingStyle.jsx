@@ -6,6 +6,10 @@ const CustomLoadingStyle = {
         padding: 20,
         borderRadius: 3,
         width: '100%',
+        justifyContent: 'center',
+        display: 'flex',
+        animationName: '$slideRight',
+        animationDuration: '0.3s',
     },
     loader: {
         width: 48,
@@ -26,7 +30,12 @@ const CustomLoadingStyle = {
         borderTop: `3px solid ${primaryColor}`,
         borderRadius: '50%',
         animation: 'spinInner 1s linear infinite',
-    }
+    },
+    '@keyframes slideRight': {
+        '0%': {opacity: 0},
+        '50%%': {opacity: 0},
+        '100%': {opacity: 1}
+    },
 }
 
 export default CustomLoadingStyle

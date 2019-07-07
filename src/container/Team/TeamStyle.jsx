@@ -9,6 +9,15 @@ const TeamStyle = {
     },
     submit: {
         marginTop: 20
+    },
+    containerMessage: {
+        height: '-webkit-fill-available',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
+    hiddenButton: {
+        display: 'none',
     }
 }
 

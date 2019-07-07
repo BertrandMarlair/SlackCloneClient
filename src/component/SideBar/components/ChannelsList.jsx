@@ -17,7 +17,7 @@ import SideBarStyle from '../SideBarStyle'
 import Title from '../../Typography/Title'
 import SmallTitle from '../../Typography/SmallTitle'
 
-const ChannelsList = ({ classes, openDrawer, channels, team, userName, setOpenAddChannelModal }) => {
+const ChannelsList = ({ classes, openDrawer, channels, team, userName, isOwner, setOpenAddChannelModal }) => {
     return (
         <Fragment>
             <Divider />
@@ -27,12 +27,14 @@ const ChannelsList = ({ classes, openDrawer, channels, team, userName, setOpenAd
                 subheader={
                     <ListSubheader component="div" className={classes.subHeaderChannel}>
                         <span>Channels</span>
-                        <Icon 
-                            centered 
-                            onClick={() => setOpenAddChannelModal(true)}
-                        >
-                            <AddIcon className={classes.icon} />
-                        </Icon>
+                        {isOwner && (
+                            <Icon 
+                                centered 
+                                onClick={() => setOpenAddChannelModal(true)}
+                            >
+                                <AddIcon className={classes.icon} />
+                            </Icon>
+                        )}
                     </ListSubheader>
                 }
             >

@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 import Headers from '../../component/Header/Header'
 
-const Connect = (props) =>(
+const Connect = ({ children }) =>(
     <Fragment>
         <Headers />
-        {props.children}
+        {children}
     </Fragment>
 ) 
 
