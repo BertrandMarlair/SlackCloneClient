@@ -71,10 +71,7 @@ const SideBarStyle = theme => {
                 duration: theme.transitions.duration.leavingScreen,
             }),
             overflowX: 'hidden',
-            width: theme.spacing(7) + 1,
-            [theme.breakpoints.up('sm')]: {
-                width: 25,
-            },
+            width: 25,
         },
         icon: {
             fontSize: 18

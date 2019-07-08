@@ -37,7 +37,7 @@ const Container = ({ classes, channelId }) => {
     })
 
     useEffect(()=> {
-        if (data && data.getMessages && !!data.getMessages.length) {
+        if (data && data.getMessages) {
             setMessages(data.getMessages)
         }
     }, [data])
