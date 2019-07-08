@@ -29,7 +29,9 @@ const CreateTeam = ({ classes, history}) => {
                         variant: 'contained',
                         color: 'primary'
                     })
-                    history.push(`/app/view-team/${team.id}`)
+                    setTimeout(()=>{
+                        history.push(`/app/view-team/${team.id}`)
+                    }, 1000)
                 } else {
                     if (errors && errors.length) {
                         const teamErrorMessage = errors[errors.findIndex(x => x.path === 'name')]

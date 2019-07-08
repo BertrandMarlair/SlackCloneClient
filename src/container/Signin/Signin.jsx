@@ -37,7 +37,7 @@ const Signin = ({ classes, history }) => {
                     variant: 'contained', 
                     color: 'primary'
                 })
-                history.push('/app/dash')
+                history.push('/connect/login')
             }else{
                 if(errors && errors.length){
                     const usernameErrorMessage = errors[errors.findIndex(x => x.path === 'username')]

@@ -24,13 +24,13 @@ const Container = ({ classes, channelId }) => {
         onSubscriptionData: ({ client, subscriptionData }) => {
             if(subscriptionData){
                 setMessages([
-                    ...messages,
                     {
                         ...subscriptionData.data.messageAdded,
                         createdAt: {
                             timestamp: Date.now()
                         }
-                    }
+                    },
+                    ...messages
                 ])
             }
         }
