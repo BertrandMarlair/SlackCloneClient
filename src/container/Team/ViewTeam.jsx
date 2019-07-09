@@ -9,7 +9,7 @@ import { useQuery } from 'react-apollo-hooks'
 import { Redirect } from 'react-router-dom'
 import Loading from '../../component/CustomLoading/CustomLoading'
 import CustomError from '../../component/CustomError/CustomError'
-import Messaging from '../Messaging/MessagingContainer'
+import Messaging from './Messaging/MessagingContainer'
 
 const ViewTeam = (props) => {
     const { params } = props.match

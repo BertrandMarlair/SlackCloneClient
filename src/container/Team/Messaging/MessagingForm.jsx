@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Input from '../../component/CustomInputs/Input'
+import Input from '../../../component/CustomInputs/Input'
 import { withStyles } from '@material-ui/core'
 import MessagingStyle from './MessagingStyle'
-import SmallTitle from '../../component/Typography/SmallTitle'
-import notify from '../../component/Notification/Notification'
+import SmallTitle from '../../../component/Typography/SmallTitle'
+import notify from '../../../component/Notification/Notification'
 
 const MessagingForm = ({ classes, channelId, createMessage }) => {
 

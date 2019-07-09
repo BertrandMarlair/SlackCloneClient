@@ -5,8 +5,8 @@ import gql from 'graphql-tag'
 import { useQuery, useMutation, useSubscription } from 'react-apollo-hooks'
 import MessagingForm from './MessagingForm'
 import MessagingView from './MessagingView'
-import CustomLoading from '../../component/CustomLoading/CustomLoading'
-import CustomError from '../../component/CustomError/CustomError'
+import CustomLoading from '../../../component/CustomLoading/CustomLoading'
+import CustomError from '../../../component/CustomError/CustomError'
 
 const Messaging = (props) => (
     <Suspense fallback={<CustomLoading />}>

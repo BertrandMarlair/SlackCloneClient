@@ -1,7 +1,6 @@
 import React, { Suspense, Fragment } from 'react'
 import { withStyles } from '@material-ui/core'
 import UserStyle from './UserStyle'
-import Title from '../../component/Typography/Title'
 import SmallTitle from '../../component/Typography/SmallTitle'
 import DashboardLayout from '../../layouts/Dashboard/Dashboard'
 import gql from 'graphql-tag'
@@ -9,7 +8,7 @@ import { useQuery } from 'react-apollo-hooks'
 import { Redirect } from 'react-router-dom'
 import Loading from '../../component/CustomLoading/CustomLoading'
 import CustomError from '../../component/CustomError/CustomError'
-import Messaging from '../Messaging/MessagingContainer'
+import Messaging from './Messaging/MessagingContainer'
 
 const ViewUser = (props) => {
     const { params } = props.match
@@ -27,11 +26,9 @@ const ViewUser = (props) => {
     )
 }
 
-const User = (props) => {
-    console.log(props.match.params.teamId)
-    const { loading, data, error } = useQuery(GET_TEAM, { variables: { id: parseInt(props.match.params.teamId) } })
+const User = ({ match: { params: { userId, teamId } }}) => {
+    const { loading, data, error } = useQuery(GET_TEAM, { variables: { id: parseInt(teamId) } })
     
-    console.log(data)
     if (!loading && !data.getTeam) {
         return <Redirect to="/app/create-team" />
     }
@@ -40,66 +37,25 @@ const User = (props) => {
         <Fragment>
             {loading && <Loading />}
             {error && <CustomError errorMessage={error} />}
-            {data.getTeam && data.getTeam.channels[0] && (
-                <Suspense fallback={<Loading />}>
-                    <DirectMessage {...props} dataTeam={data.getTeam} />
-                </Suspense>
-            )}
-        </Fragment>
-    )
-}
-
-const DirectMessage = ({ match: { params: { userId, teamId } }, dataTeam, classes}) => {
-    const { loading, data, error } = useQuery(
-        GET_DIRECT_MESSAGE, 
-        { 
-            variables: { 
-                teamId: parseInt(teamId) ,
-                receiverId: parseInt(userId), 
-            } 
-        }
-    )
-
-
-    if (!loading && !data.getChannelById) {
-        return <div>no direct message</div>
-    }
-
-    return (
-        <Fragment>
-            {userId}
-            {loading && <Loading />}
-            {error && <CustomError errorMessage={error} />}
-            {data && data.getChannelById && (
-                <div className={classes.containerMessage}>
-                    <div>
-                        <Title centered>{data.getChannelById.name}</Title>
-                    </div>
+            {data.getTeam && (
+                <Fragment>
+                    {userId}
+                    {teamId}
                     <Messaging
-                        channelId={data.getChannelById.id}
+                        teamId={parseInt(teamId)}
+                        userId={parseInt(userId)}
                     />
-                </div>
+                </Fragment>
             )}
         </Fragment>
     )
 }
-
-const GET_DIRECT_MESSAGE = gql`
-    query getDirectMessage($teamId: Int!, $receiverId: Int!) {
-        getDirectMessage(teamId: $teamId, receiverId: $receiverId) {
-            id
-            name
-        }
-    }
-`
 
 const GET_TEAM = gql`  
     query getTeam($id: Int!) {
         getTeam(id: $id) {
             id
-            channels{
-                id
-            }
+            name
         }
     }
 `
