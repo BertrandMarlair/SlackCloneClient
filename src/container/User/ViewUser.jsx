@@ -27,7 +27,7 @@ const ViewUser = (props) => {
     )
 }
 
-const User = ({ match: { params: { userId, teamId } }}) => {
+const User = ({ classes, match: { params: { userId, teamId } }}) => {
     const { loading, data, error } = useQuery(GET_TEAM, { variables: { id: parseInt(teamId) } })
     
     if (!loading && !data.getTeam) {
@@ -39,13 +39,13 @@ const User = ({ match: { params: { userId, teamId } }}) => {
             {loading && <Loading />}
             {error && <CustomError errorMessage={error} />}
             {data.getTeam && (
-                <Fragment>
+                <div className={classes.containerMessage}>
                     <Title centered>Private message</Title>
                     <Messaging
                         teamId={parseInt(teamId)}
                         userId={parseInt(userId)}
                     />
-                </Fragment>
+                </div>
             )}
         </Fragment>
     )

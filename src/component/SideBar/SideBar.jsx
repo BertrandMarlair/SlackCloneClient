@@ -13,7 +13,6 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
     const [currentTeamId, setCurrentTeamId] = useState(params.teamId ? parseInt(params.teamId) : null)
 
     const user = useQuery(CURRENT_USER)
-    console.log(user)
 
     const createChannelMutation = useMutation(CREATE_CHANNEL, { refetchQueries: ['getCurrentUser'],  
         update: (proxy, { data: { createChannel } }) => {
@@ -25,9 +24,7 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
     const createUserInvitelMutation = useMutation(INVITE_USER_TO_TEAM) 
 
     const currentUser = user.data && user.data.getCurrentUser ? user.data.getCurrentUser : {}
-    console.log(currentUser)
     const getTeams = currentUser && currentUser.teams ? currentUser.teams : []
-    // const getInviteTeams = teams.data && teams.data.inviteTeams ? teams.data.inviteTeams : []
     const allTeams = [...getTeams]
     const currentIndexTeam = allTeams.findIndex(team => team.id === currentTeamId)
     const currentTeam = currentIndexTeam > -1 ? allTeams[currentIndexTeam] : allTeams ? allTeams[0] : {}
