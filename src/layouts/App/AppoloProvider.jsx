@@ -50,7 +50,8 @@ const AppoloProvider = () => {
         options: {
             reconnect: true,
             connectionParams: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                token: localStorage.getItem('token'),
+                refreshToken: localStorage.getItem('refreshToken'),
             },
         },
     })

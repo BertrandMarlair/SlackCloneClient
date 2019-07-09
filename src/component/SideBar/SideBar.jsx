@@ -12,9 +12,10 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
 
     const [currentTeamId, setCurrentTeamId] = useState(params.teamId ? parseInt(params.teamId) : null)
 
-    const teams = useQuery(ALL_TEAM)
+    const user = useQuery(CURRENT_USER)
+    console.log(user)
 
-    const createChannelMutation = useMutation(CREATE_CHANNEL, { refetchQueries: ['allTeams'],  
+    const createChannelMutation = useMutation(CREATE_CHANNEL, { refetchQueries: ['getCurrentUser'],  
         update: (proxy, { data: { createChannel } }) => {
             if (!createChannel.ok) return
             history.push(`/app/view-team/${currentTeamId}/${createChannel.channel.id}`)
@@ -23,9 +24,11 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
 
     const createUserInvitelMutation = useMutation(INVITE_USER_TO_TEAM) 
 
-    const getTeams = teams.data && teams.data.allTeams ? teams.data.allTeams : []
-    const getInviteTeams = teams.data && teams.data.inviteTeams ? teams.data.inviteTeams : []
-    const allTeams = [...getTeams, ...getInviteTeams]
+    const currentUser = user.data && user.data.getCurrentUser ? user.data.getCurrentUser : {}
+    console.log(currentUser)
+    const getTeams = currentUser && currentUser.teams ? currentUser.teams : []
+    // const getInviteTeams = teams.data && teams.data.inviteTeams ? teams.data.inviteTeams : []
+    const allTeams = [...getTeams]
     const currentIndexTeam = allTeams.findIndex(team => team.id === currentTeamId)
     const currentTeam = currentIndexTeam > -1 ? allTeams[currentIndexTeam] : allTeams ? allTeams[0] : {}
     const channels = currentTeam && currentTeam.channels ? currentTeam.channels : []
@@ -40,7 +43,7 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
         }
     }, [currentTeam, history, params, location])
 
-    if (!teams.loading && !allTeams.length){
+    if (!user.loading && !allTeams.length){
         return <Redirect to="/app/create-team" />
     }
 
@@ -54,32 +57,26 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
             />
             <SideLeftBar 
                 teams={getTeams} 
-                inviteTeams={getInviteTeams} 
+                inviteTeams={[]} 
             />
         </div>
     )
 }
 
-const ALL_TEAM = gql`  
-    query allTeams {
-        allTeams {
+const CURRENT_USER = gql`  
+    query getCurrentUser {
+        getCurrentUser {
             id
-            name
-            owner
-            channels{
+            username
+            teams {
                 id
                 name
-                public
-            }
-        }
-        inviteTeams {
-            id
-            name
-            owner
-            channels{
-                id
-                name
-                public
+                admin
+                channels{
+                    id
+                    name
+                    public
+                }
             }
         }
     }

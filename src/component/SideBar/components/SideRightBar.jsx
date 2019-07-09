@@ -39,7 +39,7 @@ const SideRightBar = ({ classes, channels, team, createChannelMutation, createUs
     }
 
     const openDrawer = isSidebarOpened || hover
-    const isOwner = team && team.owner === user.id
+    const isOwner = team && team.admin
 
     return (
         <Fragment>
