@@ -1,24 +1,30 @@
 import React, { useState, Fragment } from 'react'
-import { compose } from 'recompose'
-import { withStyles } from '@material-ui/core'
-import SideBarStyle from '../SideBarStyle'
-import { withRouter } from 'react-router-dom'
 import clsx from 'clsx'
-import Drawer from '@material-ui/core/Drawer'
-import Icon from '../../../component/CustomIcons/Icon'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import { compose } from 'recompose'
+import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+
 import ChannelsList from './ChannelsList'
 import MessagesList from './MessagesList'
+import DirectMessageList from './DirectMessageList'
+
+import Drawer from '@material-ui/core/Drawer'
+import { withStyles } from '@material-ui/core'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+
+import SideBarStyle from '../SideBarStyle'
+import Icon from '../../../component/CustomIcons/Icon'
 import CreateChannel from '../../../component/Channel/CreateChannel'
 import InviteUserToTeam from '../../../component/Team/InviteUserToTeam'
+import InviteUserToDirectMessage from '../../DirectMessage/InviteUserToDirectMessage'
 
 const SideRightBar = ({ classes, channels, team, createChannelMutation, createUserInvitelMutation }) => {
 
     const [hover, setHover] = useState(false)
     const [openAddChannelModal, setOpenAddChannelModal] = useState(false)
     const [openInviteUserToTeamModal, setOpenInviteUserToTeamModal] = useState(false)
+    const [openAddDirectMessageModal, setOpenAddDirectMessageModal] = useState(false)
     const layout = useSelector(state => state.layout)
     const connected = useSelector(state => state.connected)
     const dispatch = useDispatch()
@@ -66,7 +72,7 @@ const SideRightBar = ({ classes, channels, team, createChannelMutation, createUs
             <div 
                 className={classes.sideBarRight}
                 onMouseEnter={() => handleDrawerHover(true)}
-            >
+            > 
                 <Drawer
                     variant="permanent"
                     className={clsx(classes.drawer, {
@@ -88,11 +94,16 @@ const SideRightBar = ({ classes, channels, team, createChannelMutation, createUs
                         isOwner={isOwner}
                         userName={user.name}
                         setOpenAddChannelModal={setOpenAddChannelModal}
-                        />
+                    />
                     <MessagesList 
                         isOwner={isOwner}
                         setOpenInviteUserToTeamModal={setOpenInviteUserToTeamModal} 
                     />
+                    <DirectMessageList 
+                        openDrawer={openDrawer} 
+                        setOpenAddDirectMessageModal={setOpenAddDirectMessageModal}
+                        teamId={team ? team.id : null}
+                />
                 </Drawer>
             </div>
             <CreateChannel 
@@ -105,6 +116,12 @@ const SideRightBar = ({ classes, channels, team, createChannelMutation, createUs
                 teamId={team ? team.id : null}
                 openInviteUserToTeamModal={openInviteUserToTeamModal} 
                 setOpenInviteUserToTeamModal={setOpenInviteUserToTeamModal} 
+                createUserInvitelMutation={createUserInvitelMutation}
+            />
+            <InviteUserToDirectMessage
+                teamId={team ? team.id : null}
+                openAddDirectMessageModal={openAddDirectMessageModal} 
+                setOpenAddDirectMessageModal={setOpenAddDirectMessageModal} 
                 createUserInvitelMutation={createUserInvitelMutation}
             />
         </Fragment>

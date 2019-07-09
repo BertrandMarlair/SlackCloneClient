@@ -1,8 +1,6 @@
 import React from 'react'
 import List from '@material-ui/core/List'
 import { withStyles } from '@material-ui/core'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import { Add as AddIcon } from '@material-ui/icons'
 
@@ -26,11 +24,6 @@ const MessagesList = ({ setOpenInviteUserToTeamModal, classes, isOwner }) => {
                 </ListSubheader>
             }
         >
-            {['coucou', 'test'].map((text, index) => (
-                <ListItem button key={text}>
-                    <ListItemText primary={text} />
-                </ListItem>
-            ))}
         </List>
     )
 }

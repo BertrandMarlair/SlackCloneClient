@@ -22,7 +22,7 @@ const MessagingView = ({ classes, messages }) => {
                             <ListItemText
                                 primary={
                                     <div className={classes.headerMessage}>
-                                        {message.user.username}
+                                        {message.sender.username}
                                         <Text>{new Date(message.createdAt.timestamp).toDateString()}</Text>
                                     </div>
                                 }

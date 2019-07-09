@@ -5,16 +5,16 @@ import MessagingStyle from './MessagingStyle'
 import SmallTitle from '../../../component/Typography/SmallTitle'
 import notify from '../../../component/Notification/Notification'
 
-const MessagingForm = ({ classes, userId, createMessage }) => {
+const MessagingForm = ({ classes, receiverId, teamId, createDirectMessage }) => {
 
     const [message, setMessage] = useState('')
     const [messageError, setMessageError] = useState('')
 
     const handleSubmit = e => {
         e.preventDefault()
-        createMessage({ variables: { receiverId: userId, text: message } })
+        createDirectMessage({ variables: { receiverId, text: message, teamId } })
             .then(response => {
-                const { errors } = response.data.createMessage
+                const { errors } = response.data.createDirectMessage
                 if (!errors) {
                     setMessage('')
                 } else {

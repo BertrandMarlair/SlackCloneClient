@@ -19,7 +19,7 @@ const Container = ({ classes, userId, teamId }) => {
 
     const { data, error, loading } = useQuery(GET_DIRECT_MESSAGES, { variables: { teamId, ortherUser: userId } })
     console.log(data)
-    const createMessage = useMutation(CREATE_DIRECT_MESSAGE)
+    const createDirectMessage = useMutation(CREATE_DIRECT_MESSAGE)
     // useSubscription(MESSAGE_ADDED, {
     //     variables: { receiverId: userId },
     //     onSubscriptionData: ({ client, subscriptionData }) => {
@@ -38,8 +38,8 @@ const Container = ({ classes, userId, teamId }) => {
     // })
 
     useEffect(()=> {
-        if (data && data.getMessages) {
-            setMessages(data.getMessages)
+        if (data && data.getDirectMessage) {
+            setMessages(data.getDirectMessage)
         }
     }, [data])
 
@@ -52,7 +52,8 @@ const Container = ({ classes, userId, teamId }) => {
             />
             <MessagingForm 
                 receiverId={userId}
-                createMessage={createMessage}
+                teamId={teamId}
+                createDirectMessage={createDirectMessage}
             />
         </div>
     )
@@ -75,8 +76,8 @@ const GET_DIRECT_MESSAGES = gql`
 `
 
 const CREATE_DIRECT_MESSAGE = gql`  
-    mutation createDirectMessage($receiverId: Int!, $text: String!) {
-        createDirectMessage(receiverId: $receiverId, text: $text)
+    mutation createDirectMessage($receiverId: Int!, $text: String!, $teamId: Int!) {
+        createDirectMessage(receiverId: $receiverId, text: $text, teamId: $teamId)
     }
 `
 

@@ -8,6 +8,7 @@ import { useQuery } from 'react-apollo-hooks'
 import { Redirect } from 'react-router-dom'
 import Loading from '../../component/CustomLoading/CustomLoading'
 import CustomError from '../../component/CustomError/CustomError'
+import Title from '../../component/Typography/Title'
 import Messaging from './Messaging/MessagingContainer'
 
 const ViewUser = (props) => {
@@ -39,8 +40,7 @@ const User = ({ match: { params: { userId, teamId } }}) => {
             {error && <CustomError errorMessage={error} />}
             {data.getTeam && (
                 <Fragment>
-                    {userId}
-                    {teamId}
+                    <Title centered>Private message</Title>
                     <Messaging
                         teamId={parseInt(teamId)}
                         userId={parseInt(userId)}
