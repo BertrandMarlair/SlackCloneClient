@@ -23,22 +23,25 @@ const Container = ({ classes, userId, teamId }) => {
 
     const createDirectMessage = useMutation(CREATE_DIRECT_MESSAGE)
 
-    // useSubscription(MESSAGE_ADDED, {
-    //     variables: { receiverId: userId },
-    //     onSubscriptionData: ({ client, subscriptionData }) => {
-    //         if(subscriptionData){
-    //             setMessages([
-    //                 {
-    //                     ...subscriptionData.data.messageAdded,
-    //                     createdAt: {
-    //                         timestamp: Date.now()
-    //                     }
-    //                 },
-    //                 ...messages
-    //             ])
-    //         }
-    //     }
-    // })
+    const test =  useSubscription(DIRECT_MESSAGE_ADDED, {
+        variables: { teamId, userId },
+        onSubscriptionData: ({ client, subscriptionData }) => {
+            console.log(subscriptionData)
+            if(subscriptionData){
+                setMessages([
+                    {
+                        ...subscriptionData.data.directMessageAdded,
+                        createdAt: {
+                            timestamp: Date.now()
+                        }
+                    },
+                    ...messages
+                ])
+            }
+        }
+    })
+
+    console.log(test)
 
     useEffect(()=> {
         if (data && data.getDirectMessage) {
@@ -105,17 +108,17 @@ const GET_USER = gql`
     }
 `
 
-// const MESSAGE_ADDED = gql`
-//     subscription messageAdded($channelId: Int!) {
-//         messageAdded(channelId: $channelId) {
-//             id
-//             text
-//             user {
-//                 id
-//                 username
-//             }
-//         }
-//     }
-// `
+const DIRECT_MESSAGE_ADDED = gql`
+    subscription directMessageAdded($teamId: Int!, $userId: Int!) {
+        directMessageAdded(teamId: $teamId, userId: $userId) {
+            id
+            text
+            sender {
+                id
+                username
+            }
+        }
+    }
+`
 
 export default withStyles(MessagingStyle)(Messaging)
