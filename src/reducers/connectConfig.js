@@ -17,6 +17,7 @@ export const initialState = {
 }
 
 export const CONNECTED = 'CONNECTED'
+export const LOGOUT = 'LOGOUT'
 
 export const toggleConnection = () => ({
     type: CONNECTED,
@@ -31,6 +32,11 @@ export default function LoginReducer(state = initialState, {
             return {
                 ...state,
                 connected: payload,
+            }
+        case LOGOUT:
+            return {
+                user: {},
+                connected: false,
             }
         default:
             return state

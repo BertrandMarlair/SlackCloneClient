@@ -7,6 +7,7 @@ import MessagingForm from './MessagingForm'
 import MessagingView from './MessagingView'
 import CustomLoading from '../../../component/CustomLoading/CustomLoading'
 import CustomError from '../../../component/CustomError/CustomError'
+import Title from '../../../component/Typography/Title'
 
 const Messaging = (props) => (
     <Suspense fallback={<CustomLoading />}>
@@ -17,9 +18,11 @@ const Messaging = (props) => (
 const Container = ({ classes, userId, teamId }) => {
     const [ messages, setMessages ] = useState([])
 
+    const userDirectMessage = useQuery(GET_USER, { variables: { id: userId }, fetchPolicy: "network-only"})
     const { data, error, loading } = useQuery(GET_DIRECT_MESSAGES, { variables: { teamId, ortherUser: userId } })
-    console.log(data)
+
     const createDirectMessage = useMutation(CREATE_DIRECT_MESSAGE)
+
     // useSubscription(MESSAGE_ADDED, {
     //     variables: { receiverId: userId },
     //     onSubscriptionData: ({ client, subscriptionData }) => {
@@ -43,18 +46,30 @@ const Container = ({ classes, userId, teamId }) => {
         }
     }, [data])
 
+    console.log(userDirectMessage)
+    const userDirectData = userDirectMessage.data.getUser
+    console.log(userDirectData)
+
+    if (!userDirectData) return <CustomError errorMessage={userDirectMessage.data.error} />
+
     return (
         <div>
             {error && <CustomError errorMessage={error.message} />}
             {loading && <CustomLoading />}
-            <MessagingView
-                messages={messages}
-            />
-            <MessagingForm 
-                receiverId={userId}
-                teamId={teamId}
-                createDirectMessage={createDirectMessage}
-            />
+            <div className={classes.containerMessage}>
+                <Title centered>{userDirectData.username}</Title>
+                <div>
+                    <MessagingView
+                        messages={messages}
+                    />
+                    <MessagingForm
+                        userDirectData={userDirectData}
+                        receiverId={userId}
+                        teamId={teamId}
+                        createDirectMessage={createDirectMessage}
+                    />
+                </div>
+            </div>
         </div>
     )
 }
@@ -78,6 +93,15 @@ const GET_DIRECT_MESSAGES = gql`
 const CREATE_DIRECT_MESSAGE = gql`  
     mutation createDirectMessage($receiverId: Int!, $text: String!, $teamId: Int!) {
         createDirectMessage(receiverId: $receiverId, text: $text, teamId: $teamId)
+    }
+`
+
+const GET_USER = gql`  
+    query getUser($id: Int!) {
+        getUser(id: $id) {
+            id
+            username
+        }
     }
 `
 

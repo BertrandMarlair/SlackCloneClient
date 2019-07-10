@@ -16,7 +16,7 @@ import SideBarStyle from '../SideBarStyle'
 import Icon from '../../CustomIcons/Icon'
 
 
-const DirectMessageList = ({ classes, openDrawer, setOpenAddDirectMessageModal, teamId }) => {
+const DirectMessageList = ({ classes, openDrawer, setOpenAddDirectMessageModal, teamId, directMessageMembers }) => {
     return (
         <Fragment>
             <Divider />
@@ -35,7 +35,7 @@ const DirectMessageList = ({ classes, openDrawer, setOpenAddDirectMessageModal, 
                     </ListSubheader>
                 }
             >
-                {[{ name: 'coucou', id: 1 }, { name: 'test' ,id: 2 }].map((user, index) => (
+                {directMessageMembers.map((user, index) => (
                     <Link key={`directMessage${user.id}`} to={`/app/view-team/user/${teamId}/${user.id}`}>
                         <ListItem button >
                             <ListItemIcon>
@@ -55,7 +55,7 @@ const DirectMessageList = ({ classes, openDrawer, setOpenAddDirectMessageModal, 
                                     />
                                 }
                             </ListItemIcon>
-                            <ListItemText primary={user.name} />
+                            <ListItemText primary={user.username} />
                         </ListItem>
                     </Link>
                 ))}

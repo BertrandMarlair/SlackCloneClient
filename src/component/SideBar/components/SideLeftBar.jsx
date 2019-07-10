@@ -1,26 +1,46 @@
 import React from 'react'
-import { withStyles, Divider } from '@material-ui/core'
+
 import { compose } from 'recompose'
-import SideBarStyle from '../SideBarStyle'
+import { useDispatch } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
 import {
     NotificationsNone as NotificationsIcon,
     Add as AddIcon,
+    PowerSettingsNew as LogoutIcon,
 } from '@material-ui/icons'
-import { NavLink } from 'react-router-dom'
+import { withStyles, Divider } from '@material-ui/core'
+
+import SideBarStyle from '../SideBarStyle'
 import Icon from '../../../component/CustomIcons/Icon'
 
 const SideLeftBar = ({ classes, teams, inviteTeams,  history}) => {
+
+    const dispatch = useDispatch()
+
+    const LOGOUT = () => dispatch({ type: 'LOGOUT' })
+    
+    const logout = () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('tokenRefresh')
+        LOGOUT()
+        history.push('/')
+    }
+
     return (
         <div className={classes.sideBarLeft}>
             <div className={classes.sideTop}>
-                <div className={classes.logo}>
+                <NavLink 
+                    className={classes.logo}
+                    to={'/app/dashboard'}
+                >
                     <img
                         className={classes.img}
                         src="/images/logo/bfineSmall.jpg"
                         alt="logo"
                     />
-                </div>
+                </NavLink>
                 {teams.map(team => (
                     <Icon 
                         key={team.id} 
@@ -51,7 +71,7 @@ const SideLeftBar = ({ classes, teams, inviteTeams,  history}) => {
                 </NavLink>
                 <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>
                 <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>
-                <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>
+                <Icon centered white><LogoutIcon onClick={()=>logout()} className={classes.icon} /></Icon>
             </div>
         </div>
     )

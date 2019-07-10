@@ -22,6 +22,7 @@ const SideBarStyle = theme => {
         logo: {
             width: '80%',
             margin: 'auto',
+            display: 'block',
         },
         img: {
             width: '100%',

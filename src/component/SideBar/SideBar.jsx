@@ -14,6 +14,7 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
 
     const user = useQuery(CURRENT_USER)
 
+    const createUserInvitelMutation = useMutation(INVITE_USER_TO_TEAM) 
     const createChannelMutation = useMutation(CREATE_CHANNEL, { refetchQueries: ['getCurrentUser'],  
         update: (proxy, { data: { createChannel } }) => {
             if (!createChannel.ok) return
@@ -21,7 +22,6 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
         }
     }) 
 
-    const createUserInvitelMutation = useMutation(INVITE_USER_TO_TEAM) 
 
     const currentUser = user.data && user.data.getCurrentUser ? user.data.getCurrentUser : {}
     const getTeams = currentUser && currentUser.teams ? currentUser.teams : []
@@ -29,6 +29,7 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
     const currentIndexTeam = allTeams.findIndex(team => team.id === currentTeamId)
     const currentTeam = currentIndexTeam > -1 ? allTeams[currentIndexTeam] : allTeams ? allTeams[0] : {}
     const channels = currentTeam && currentTeam.channels ? currentTeam.channels : []
+    const directMessageMembers = currentTeam && currentTeam.directMessageMembers ? currentTeam.directMessageMembers : []
 
     useEffect(() => {
         if (location.pathname.slice(0, 14) === '/app/view-team'){
@@ -49,6 +50,7 @@ const SideBar = ({ classes, match: { params }, history, location }) => {
             <SideRightBar 
                 channels={channels}
                 team={currentTeam} 
+                directMessageMembers={directMessageMembers}
                 createChannelMutation={createChannelMutation} 
                 createUserInvitelMutation={createUserInvitelMutation} 
             />
@@ -73,6 +75,10 @@ const CURRENT_USER = gql`
                     id
                     name
                     public
+                }
+                directMessageMembers {
+                    id
+                    username
                 }
             }
         }

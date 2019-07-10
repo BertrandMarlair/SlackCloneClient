@@ -8,7 +8,6 @@ import { useQuery } from 'react-apollo-hooks'
 import { Redirect } from 'react-router-dom'
 import Loading from '../../component/CustomLoading/CustomLoading'
 import CustomError from '../../component/CustomError/CustomError'
-import Title from '../../component/Typography/Title'
 import Messaging from './Messaging/MessagingContainer'
 
 const ViewUser = (props) => {
@@ -29,7 +28,7 @@ const ViewUser = (props) => {
 
 const User = ({ classes, match: { params: { userId, teamId } }}) => {
     const { loading, data, error } = useQuery(GET_TEAM, { variables: { id: parseInt(teamId) } })
-    
+
     if (!loading && !data.getTeam) {
         return <Redirect to="/app/create-team" />
     }
@@ -39,13 +38,10 @@ const User = ({ classes, match: { params: { userId, teamId } }}) => {
             {loading && <Loading />}
             {error && <CustomError errorMessage={error} />}
             {data.getTeam && (
-                <div className={classes.containerMessage}>
-                    <Title centered>Private message</Title>
-                    <Messaging
-                        teamId={parseInt(teamId)}
-                        userId={parseInt(userId)}
-                    />
-                </div>
+                <Messaging
+                    teamId={parseInt(teamId)}
+                    userId={parseInt(userId)}
+                />
             )}
         </Fragment>
     )

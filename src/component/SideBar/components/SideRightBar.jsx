@@ -19,7 +19,7 @@ import CreateChannel from '../../../component/Channel/CreateChannel'
 import InviteUserToTeam from '../../../component/Team/InviteUserToTeam'
 import InviteUserToDirectMessage from '../../DirectMessage/InviteUserToDirectMessage'
 
-const SideRightBar = ({ classes, channels, team, createChannelMutation, createUserInvitelMutation }) => {
+const SideRightBar = ({ classes, channels, team, directMessageMembers, createChannelMutation, createUserInvitelMutation }) => {
 
     const [hover, setHover] = useState(false)
     const [openAddChannelModal, setOpenAddChannelModal] = useState(false)
@@ -101,6 +101,7 @@ const SideRightBar = ({ classes, channels, team, createChannelMutation, createUs
                     />
                     <DirectMessageList 
                         openDrawer={openDrawer} 
+                        directMessageMembers={directMessageMembers}
                         setOpenAddDirectMessageModal={setOpenAddDirectMessageModal}
                         teamId={team ? team.id : null}
                 />
