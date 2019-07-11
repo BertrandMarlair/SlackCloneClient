@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Modal from '../CustomModal/Modal'
 import DirectMessageStyle from './DirectMessageStyle'
 import { withStyles } from '@material-ui/core'
@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 import DownShiftSelectUser from './DownShiftSelectUser'
 
-const InviteUserToDirectMessage = ({ openAddDirectMessageModal, setOpenAddDirectMessageModal, classes, history, teamId, createUserInvitelMutation}) => {
+const InviteUserToDirectMessage = ({ openAddDirectMessageModal, setOpenAddDirectMessageModal, classes, teamId}) => {
     return (
         <Modal
             open={openAddDirectMessageModal}

@@ -71,7 +71,7 @@ const SideLeftBar = ({ classes, teams, inviteTeams,  history}) => {
                 </NavLink>
                 <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>
                 <Icon centered white><NotificationsIcon className={classes.icon} /></Icon>
-                <Icon centered white><LogoutIcon onClick={()=>logout()} className={classes.icon} /></Icon>
+                <Icon centered white onClick={() => logout()}><LogoutIcon className={classes.icon} /></Icon>
             </div>
         </div>
     )

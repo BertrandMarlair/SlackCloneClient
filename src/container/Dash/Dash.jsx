@@ -47,7 +47,6 @@ const DisplayUsers = ({classes}) => {
                 cols={12} 
                 rowHeight={30} 
                 width={dashboardSise} 
-                compactType={null}
             >
                 {users.data.allUsers && users.data.allUsers.map(coach => (
                     <Paper className={classes.girdLayoutItem} key={`userId/${coach.id}`} data-grid={{ x: 0, y: 0, w: 5, h: 3}}>
